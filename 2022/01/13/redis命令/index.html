@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>redis命令 | 个人博客</title><meta name="author" content="陈先森66"><meta name="copyright" content="陈先森66"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一. redis启动与关闭注：以下所有命令基于redis-6.2.6测试 1. 前台启动1redis-server  2. 后台启动1redis-server &amp;  3. 配置文件后台启动1redis-server redis.conf &amp;  4. 关闭服务1redis-cli shutdown  二. 常用命令1. 默认连接服务1redis-cli  2. 指定主机端口号连接服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis命令">
+<meta property="og:url" content="http://example.com/2022/01/13/redis%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="一. redis启动与关闭注：以下所有命令基于redis-6.2.6测试 1. 前台启动1redis-server  2. 后台启动1redis-server &amp;  3. 配置文件后台启动1redis-server redis.conf &amp;  4. 关闭服务1redis-cli shutdown  二. 常用命令1. 默认连接服务1redis-cli  2. 指定主机端口号连接服务">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/default_cover_01.jpg">
+<meta property="article:published_time" content="2022-01-13T04:13:16.000Z">
+<meta property="article:modified_time" content="2022-01-13T04:13:40.945Z">
+<meta property="article:author" content="陈先森66">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/default_cover_01.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/01/13/redis%E5%91%BD%E4%BB%A4/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'redis命令',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2022-01-13 12:13:40'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/my_mouse.css"><link rel="stylesheet" href="/css/my_footer.css"><link rel="stylesheet" href="/css/my_background.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/box/"><i class="fa-fw fas fa-box"></i><span> 百宝箱</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/default_cover_01.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">个人博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/box/"><i class="fa-fw fas fa-box"></i><span> 百宝箱</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">redis命令</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-13T04:13:16.000Z" title="发表于 2022-01-13 12:13:16">2022-01-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-13T04:13:40.945Z" title="更新于 2022-01-13 12:13:40">2022-01-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="redis命令"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="一-redis启动与关闭"><a href="#一-redis启动与关闭" class="headerlink" title="一. redis启动与关闭"></a>一. redis启动与关闭</h2><p><strong>注：以下所有命令基于redis-6.2.6测试</strong></p>
+<h4 id="1-前台启动"><a href="#1-前台启动" class="headerlink" title="1. 前台启动"></a>1. 前台启动</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-后台启动"><a href="#2-后台启动" class="headerlink" title="2. 后台启动"></a>2. 后台启动</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server &amp;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-配置文件后台启动"><a href="#3-配置文件后台启动" class="headerlink" title="3. 配置文件后台启动"></a>3. 配置文件后台启动</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server redis.conf &amp;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-关闭服务"><a href="#4-关闭服务" class="headerlink" title="4. 关闭服务"></a>4. 关闭服务</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli shutdown</span><br></pre></td></tr></table></figure>
+
+<h2 id="二-常用命令"><a href="#二-常用命令" class="headerlink" title="二. 常用命令"></a>二. 常用命令</h2><h4 id="1-默认连接服务"><a href="#1-默认连接服务" class="headerlink" title="1. 默认连接服务"></a>1. 默认连接服务</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-指定主机端口号连接服务"><a href="#2-指定主机端口号连接服务" class="headerlink" title="2. 指定主机端口号连接服务"></a>2. 指定主机端口号连接服务</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -h ip地址 -p 端口号</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-退出连接"><a href="#3-退出连接" class="headerlink" title="3. 退出连接"></a>3. 退出连接</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; quit</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-检测连接是否正常"><a href="#4-检测连接是否正常" class="headerlink" title="4. 检测连接是否正常"></a>4. 检测连接是否正常</h4><p>返回<code>PONG</code>为连接正常</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ping</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-查看服务器统计信息"><a href="#5-查看服务器统计信息" class="headerlink" title="5. 查看服务器统计信息"></a>5. 查看服务器统计信息</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; info</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-切换数据库"><a href="#6-切换数据库" class="headerlink" title="6. 切换数据库"></a>6. 切换数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; select 数据库编号</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-清空数据库"><a href="#7-清空数据库" class="headerlink" title="7. 清空数据库"></a>7. 清空数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; flushdb</span><br></pre></td></tr></table></figure>
+
+<h4 id="8-清空所有数据库"><a href="#8-清空所有数据库" class="headerlink" title="8. 清空所有数据库"></a>8. 清空所有数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; flushall</span><br></pre></td></tr></table></figure>
+
+<h4 id="9-查看配置信息"><a href="#9-查看配置信息" class="headerlink" title="9. 查看配置信息"></a>9. 查看配置信息</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; config get *</span><br></pre></td></tr></table></figure>
+
+<h4 id="10-查看数据库key的数量"><a href="#10-查看数据库key的数量" class="headerlink" title="10. 查看数据库key的数量"></a>10. 查看数据库key的数量</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; dbsize</span><br></pre></td></tr></table></figure>
+
+<h4 id="11-查看数据库中匹配的key"><a href="#11-查看数据库中匹配的key" class="headerlink" title="11. 查看数据库中匹配的key"></a>11. 查看数据库中匹配的key</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; keys *				//匹配任意个字符</span><br><span class="line">127.0.0.1:6379&gt; keys ?				//匹配任意单个字符</span><br><span class="line">127.0.0.1:6379&gt; keys []				//匹配[]内的一个字符</span><br></pre></td></tr></table></figure>
+
+<h4 id="12-判断key是否存在"><a href="#12-判断key是否存在" class="headerlink" title="12. 判断key是否存在"></a>12. 判断key是否存在</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; exists key</span><br></pre></td></tr></table></figure>
+
+<h4 id="13-查看key的生存时间"><a href="#13-查看key的生存时间" class="headerlink" title="13. 查看key的生存时间"></a>13. 查看key的生存时间</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; ttl key</span><br></pre></td></tr></table></figure>
+
+<h4 id="14-设置key的生存时间"><a href="#14-设置key的生存时间" class="headerlink" title="14.设置key的生存时间"></a>14.设置key的生存时间</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; expire key 时间(秒)</span><br></pre></td></tr></table></figure>
+
+<h4 id="15-查看key的数据类型"><a href="#15-查看key的数据类型" class="headerlink" title="15. 查看key的数据类型"></a>15. 查看key的数据类型</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; type key</span><br></pre></td></tr></table></figure>
+
+<h4 id="16-删除key及记录"><a href="#16-删除key及记录" class="headerlink" title="16. 删除key及记录"></a>16. 删除key及记录</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; del key</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="三-redis数据操作"><a href="#三-redis数据操作" class="headerlink" title="三. redis数据操作"></a>三. redis数据操作</h2><h4 id="1-String类型"><a href="#1-String类型" class="headerlink" title="1. String类型"></a>1. String类型</h4><p>存储数据，若key相同则覆盖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; set key value</span><br></pre></td></tr></table></figure>
+
+<p>存储数据，若key相同，放弃存储</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; setnx key value</span><br></pre></td></tr></table></figure>
+
+<p>批量存储获取数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; mset key1 value1 key2 value2 ...</span><br><span class="line">127.0.0.1:6379&gt; msetnx key1 value1 key2 value2 ...</span><br><span class="line">127.0.0.1:6379&gt; mget key1 key2 ...</span><br></pre></td></tr></table></figure>
+
+<p>获取数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; get key</span><br></pre></td></tr></table></figure>
+
+<p>追加字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; append key value</span><br></pre></td></tr></table></figure>
+
+<p>获取字符串长度</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; strlen key</span><br></pre></td></tr></table></figure>
+
+<p>字符串数值加减一</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; incr key</span><br><span class="line">127.0.0.1:6379&gt; decr key</span><br></pre></td></tr></table></figure>
+
+<p>字符串数值加减n</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; incrby key n</span><br><span class="line">127.0.0.1:6379&gt; decrby key n</span><br></pre></td></tr></table></figure>
+
+<p>截取字符串 (n位到m位)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; getrange key n m</span><br></pre></td></tr></table></figure>
+
+<p>覆盖n位后的字符串，覆盖不了的保留原样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; setrange key n value</span><br></pre></td></tr></table></figure>
+
+<p>设置值同时设置生命周期</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; setex key 时间(秒) value</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-List类型"><a href="#2-List类型" class="headerlink" title="2. List类型"></a>2. List类型</h4><p>存储数据顺序插入List ( lpush头插法，rpush尾插法 )</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lpush key value1 vulue2 ...</span><br><span class="line">127.0.0.1:6379&gt; rpush key value1 vulue2 ...</span><br></pre></td></tr></table></figure>
+
+<p>获取列表指定区间元素(nm位List下标)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lrange key n m</span><br></pre></td></tr></table></figure>
+
+<p>移除List头尾n个元素并返回值，无n默认为1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lpop key n </span><br><span class="line">127.0.0.1:6379&gt; rpop key n</span><br></pre></td></tr></table></figure>
+
+<p>获取列表指定元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lindex key n</span><br></pre></td></tr></table></figure>
+
+<p>获取列表长度</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; llen key</span><br></pre></td></tr></table></figure>
+
+<p>移除列表数据(n为删除个数)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; lrem key n value</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-Set集合类型"><a href="#3-Set集合类型" class="headerlink" title="3. Set集合类型"></a>3. Set集合类型</h4><p>存储数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; sadd key value1 value2 ...</span><br></pre></td></tr></table></figure>
+
+<p>获取set集合元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; smembers key</span><br></pre></td></tr></table></figure>
+
+<p>判断指定元素是否存在</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; sismember key value</span><br></pre></td></tr></table></figure>
+
+<p>获取指定集合长度</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; scard key</span><br></pre></td></tr></table></figure>
+
+<p>删除元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; srem key value1 value2 ...</span><br></pre></td></tr></table></figure>
+
+<p>随机获取n个元素( 没有n默认为1 )</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; srangmember key n</span><br></pre></td></tr></table></figure>
+
+<p>随机移除n个元素( 没有n默认为1 )</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; spop key n</span><br></pre></td></tr></table></figure>
+
+<p>将一个集合(key1)的元素移动到另一集合(key2)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; smove key1 key2 value</span><br></pre></td></tr></table></figure>
+
+<p>差集(key1集合中有，其他集合中没有)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; sdiff key1 key2 key3 ....</span><br></pre></td></tr></table></figure>
+
+<p>交集(所有集合都有的元素)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; sinter key1 key2 ...</span><br></pre></td></tr></table></figure>
+
+<p>并集</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; sunion key1 key2 </span><br></pre></td></tr></table></figure>
+
+<h4 id="4-哈希表类型"><a href="#4-哈希表类型" class="headerlink" title="4. 哈希表类型"></a>4. 哈希表类型</h4><p>存储数据，相同key或k会覆盖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hset key k1 v1 k2 v2 ...</span><br></pre></td></tr></table></figure>
+
+<p>存储数据，相同key或k会放弃存储</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hsetnx key k v</span><br></pre></td></tr></table></figure>
+
+<p>获取指定数据数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hget key k</span><br></pre></td></tr></table></figure>
+
+<p>获取全部数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hgetall key</span><br></pre></td></tr></table></figure>
+
+<p>批量获取多个数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hmget key k1 k2 ...</span><br></pre></td></tr></table></figure>
+
+<p>删除指定数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hmget key k1 k2 ...</span><br></pre></td></tr></table></figure>
+
+<p>获取哈希表长度</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hlen key</span><br></pre></td></tr></table></figure>
+
+<p>判断k是否存在</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hexists key k</span><br></pre></td></tr></table></figure>
+
+<p>获得所有的k或v</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hkeys key</span><br><span class="line">127.0.0.1:6379&gt; hvals key</span><br></pre></td></tr></table></figure>
+
+<p>若v为数值，进行加n运算 (类比String的运算)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; hincrby key k n</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-有序集合"><a href="#5-有序集合" class="headerlink" title="5. 有序集合"></a>5. 有序集合</h4><p>存储数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zadd key score value1 score value2 ...</span><br></pre></td></tr></table></figure>
+
+<p>获取指定下标区间的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zrange key n m </span><br></pre></td></tr></table></figure>
+
+<p>获取指定分数区间的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zrangebyscore key n m </span><br></pre></td></tr></table></figure>
+
+<p>删除指定元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zrem key value1 value2 ...</span><br></pre></td></tr></table></figure>
+
+<p>获取集合元素个数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zcard key</span><br></pre></td></tr></table></figure>
+
+<p>获取指定区间元素个数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zcount key n m</span><br></pre></td></tr></table></figure>
+
+<p>获取指定元素的正(反)向排序(重0开始)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zrank key value</span><br><span class="line">127.0.0.1:6379&gt; zrevrank key value</span><br></pre></td></tr></table></figure>
+
+<p>获取指定元素分数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zscore key value</span><br></pre></td></tr></table></figure>
+
+<h2 id="四-事务"><a href="#四-事务" class="headerlink" title="四. 事务"></a>四. 事务</h2><p>标记事务的开始</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; multi</span><br></pre></td></tr></table></figure>
+
+<p>执行事务队列的所有命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; exec</span><br></pre></td></tr></table></figure>
+
+<p>放弃事务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; discard</span><br></pre></td></tr></table></figure>
+
+<p>监视一个key，事务执行过程中该值发生变化，放弃执行事务(乐观锁)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; watch key</span><br></pre></td></tr></table></figure>
+
+<p>放弃监控key</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; unwatch k</span><br></pre></td></tr></table></figure>
+
+<h2 id="五-消息的订阅"><a href="#五-消息的订阅" class="headerlink" title="五. 消息的订阅"></a>五. 消息的订阅</h2><p>订阅频道</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; subscribe 频道1 ...</span><br></pre></td></tr></table></figure>
+
+<p>发布消息到指定频道</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; publish 频道 内容</span><br></pre></td></tr></table></figure>
+
+<h2 id="六-redis集群"><a href="#六-redis集群" class="headerlink" title="六. redis集群"></a>六. redis集群</h2><p>查看主从角色</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; info replication</span><br></pre></td></tr></table></figure>
+
+<p>设置从机(ip地址和端口为主机的)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; slaveof ip地址 端口</span><br></pre></td></tr></table></figure>
+
+<p>从机断开与主机的关系</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; slaveof no one</span><br></pre></td></tr></table></figure>
+
+<p>启动哨兵服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-sentinel 哨兵配置文件地址</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">陈先森66</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/01/13/redis%E5%91%BD%E4%BB%A4/">http://example.com/2022/01/13/redis%E5%91%BD%E4%BB%A4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/default_cover_01.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/01/07/linux%E5%91%BD%E4%BB%A4/"><img class="next-cover" src="/img/default_cover_01.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">linux命令</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">陈先森66</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/chenxiansen66" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2356142251@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-redis%E5%90%AF%E5%8A%A8%E4%B8%8E%E5%85%B3%E9%97%AD"><span class="toc-number">1.</span> <span class="toc-text">一. redis启动与关闭</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%89%8D%E5%8F%B0%E5%90%AF%E5%8A%A8"><span class="toc-number">1.0.1.</span> <span class="toc-text">1. 前台启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8"><span class="toc-number">1.0.2.</span> <span class="toc-text">2. 后台启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8"><span class="toc-number">1.0.3.</span> <span class="toc-text">3. 配置文件后台启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%85%B3%E9%97%AD%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.0.4.</span> <span class="toc-text">4. 关闭服务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text">二. 常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%BB%98%E8%AE%A4%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.0.1.</span> <span class="toc-text">1. 默认连接服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%8C%87%E5%AE%9A%E4%B8%BB%E6%9C%BA%E7%AB%AF%E5%8F%A3%E5%8F%B7%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.0.2.</span> <span class="toc-text">2. 指定主机端口号连接服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E9%80%80%E5%87%BA%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.0.3.</span> <span class="toc-text">3. 退出连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%A3%80%E6%B5%8B%E8%BF%9E%E6%8E%A5%E6%98%AF%E5%90%A6%E6%AD%A3%E5%B8%B8"><span class="toc-number">2.0.4.</span> <span class="toc-text">4. 检测连接是否正常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%9F%A5%E7%9C%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BB%9F%E8%AE%A1%E4%BF%A1%E6%81%AF"><span class="toc-number">2.0.5.</span> <span class="toc-text">5. 查看服务器统计信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%88%87%E6%8D%A2%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.0.6.</span> <span class="toc-text">6. 切换数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E6%B8%85%E7%A9%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.0.7.</span> <span class="toc-text">7. 清空数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E6%B8%85%E7%A9%BA%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">2.0.8.</span> <span class="toc-text">8. 清空所有数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-%E6%9F%A5%E7%9C%8B%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-number">2.0.9.</span> <span class="toc-text">9. 查看配置信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93key%E7%9A%84%E6%95%B0%E9%87%8F"><span class="toc-number">2.0.10.</span> <span class="toc-text">10. 查看数据库key的数量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E5%8C%B9%E9%85%8D%E7%9A%84key"><span class="toc-number">2.0.11.</span> <span class="toc-text">11. 查看数据库中匹配的key</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-%E5%88%A4%E6%96%ADkey%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="toc-number">2.0.12.</span> <span class="toc-text">12. 判断key是否存在</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-%E6%9F%A5%E7%9C%8Bkey%E7%9A%84%E7%94%9F%E5%AD%98%E6%97%B6%E9%97%B4"><span class="toc-number">2.0.13.</span> <span class="toc-text">13. 查看key的生存时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-%E8%AE%BE%E7%BD%AEkey%E7%9A%84%E7%94%9F%E5%AD%98%E6%97%B6%E9%97%B4"><span class="toc-number">2.0.14.</span> <span class="toc-text">14.设置key的生存时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-%E6%9F%A5%E7%9C%8Bkey%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.0.15.</span> <span class="toc-text">15. 查看key的数据类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16-%E5%88%A0%E9%99%A4key%E5%8F%8A%E8%AE%B0%E5%BD%95"><span class="toc-number">2.0.16.</span> <span class="toc-text">16. 删除key及记录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-redis%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">三. redis数据操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-String%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.0.1.</span> <span class="toc-text">1. String类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-List%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.0.2.</span> <span class="toc-text">2. List类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Set%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.0.3.</span> <span class="toc-text">3. Set集合类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%93%88%E5%B8%8C%E8%A1%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.0.4.</span> <span class="toc-text">4. 哈希表类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88"><span class="toc-number">3.0.5.</span> <span class="toc-text">5. 有序集合</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E4%BA%8B%E5%8A%A1"><span class="toc-number">4.</span> <span class="toc-text">四. 事务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-%E6%B6%88%E6%81%AF%E7%9A%84%E8%AE%A2%E9%98%85"><span class="toc-number">5.</span> <span class="toc-text">五. 消息的订阅</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-redis%E9%9B%86%E7%BE%A4"><span class="toc-number">6.</span> <span class="toc-text">六. redis集群</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/01/13/redis%E5%91%BD%E4%BB%A4/" title="redis命令"><img src="/img/default_cover_01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="redis命令"/></a><div class="content"><a class="title" href="/2022/01/13/redis%E5%91%BD%E4%BB%A4/" title="redis命令">redis命令</a><time datetime="2022-01-13T04:13:16.000Z" title="发表于 2022-01-13 12:13:16">2022-01-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/01/07/linux%E5%91%BD%E4%BB%A4/" title="linux命令"><img src="/img/default_cover_01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="linux命令"/></a><div class="content"><a class="title" href="/2022/01/07/linux%E5%91%BD%E4%BB%A4/" title="linux命令">linux命令</a><time datetime="2022-01-07T10:12:21.000Z" title="发表于 2022-01-07 18:12:21">2022-01-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/22/ajax()%E4%B8%8D%E6%89%A7%E8%A1%8Csuccess/" title="ajax()不执行success"><img src="/img/default_cover_01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ajax()不执行success"/></a><div class="content"><a class="title" href="/2021/11/22/ajax()%E4%B8%8D%E6%89%A7%E8%A1%8Csuccess/" title="ajax()不执行success">ajax()不执行success</a><time datetime="2021-11-22T10:51:21.000Z" title="发表于 2021-11-22 18:51:21">2021-11-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/15/%E9%85%8D%E7%BD%AEannotation-driven%E7%9A%84bug/" title="在配置&lt;mvc:resources/&gt; 时遇到的bug"><img src="/img/default_cover_01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在配置&lt;mvc:resources/&gt; 时遇到的bug"/></a><div class="content"><a class="title" href="/2021/11/15/%E9%85%8D%E7%BD%AEannotation-driven%E7%9A%84bug/" title="在配置&lt;mvc:resources/&gt; 时遇到的bug">在配置&lt;mvc:resources/&gt; 时遇到的bug</a><time datetime="2021-11-15T07:07:21.000Z" title="发表于 2021-11-15 15:07:21">2021-11-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/09/ssm%E6%95%B4%E5%90%88%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="SSM整合之配置文件"><img src="/img/default_cover_01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SSM整合之配置文件"/></a><div class="content"><a class="title" href="/2021/11/09/ssm%E6%95%B4%E5%90%88%E4%B9%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="SSM整合之配置文件">SSM整合之配置文件</a><time datetime="2021-11-09T03:41:09.000Z" title="发表于 2021-11-09 11:41:09">2021-11-09</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 陈先森66</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">天生我材必有用 | 千金散尽还复来</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="/js/my.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
